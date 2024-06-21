@@ -67,8 +67,8 @@ DEFAULT_PAD_IDS_BY_NOTE_BY_CHANNEL := Map(
 	Expects callback(channel, padId, velocity)
 */
 lpd8AddPadPressedCallback(callback) {
-	global lpd8_InternalPadIdsByNoteByChannel, midiNoteOnCallbacks
-	midiNoteOnCallbacks.push(padPressedCallback)
+	global lpd8_InternalPadIdsByNoteByChannel
+	midiAddNoteOnCallback(padPressedCallback)
 
 	padPressedCallback(channel, noteNum, velocity) {
 		padId := lpd8_InternalPadIdsByNoteByChannel[channel][noteNum]
@@ -81,8 +81,8 @@ lpd8AddPadPressedCallback(callback) {
 	Expects callback(channel, padId, velocity)
 */
 lpd8AddPadReleasedCallback(callback) {
-	global lpd8_InternalPadIdsByNoteByChannel, midiNoteOffCallbacks
-	midiNoteOffCallbacks.push(padReleasedCallback)
+	global lpd8_InternalPadIdsByNoteByChannel
+	midiAddNoteOffCallback(padReleasedCallback)
 
 	padReleasedCallback(channel, noteNum, velocity) {
 		padId := lpd8_InternalPadIdsByNoteByChannel[channel][noteNum]
@@ -95,8 +95,7 @@ lpd8AddPadReleasedCallback(callback) {
 	Expects callback(channel, controllerId, velocity)
 */
 lpd8AddControlChangeCallback(callback) {
-	global midiControlChangeCallbacks
-	midiControlChangeCallbacks.Push(callback)
+	midiAddControlChangeCallback(callback)
 }
 
 /*
